@@ -5,101 +5,305 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kim Carlo Rabang | Professional Portfolio</title>
     
-    <!-- FIXED: Direct links to styling (No Google Search prefixes) -->
+    <!-- CSS & Scripts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        :root { --bg-deep: #09090b; --figma-blue: #18a0fb; }
-        body { background-color: var(--bg-deep); color: #fafafa; font-family: 'Inter', sans-serif; min-height: 100vh; margin: 0; }
-        .glass-panel { background: rgba(23, 23, 23, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .figma-gradient-text { background: linear-gradient(135deg, #18a0fb 0%, #a259ff 50%, #ff7262 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .profile-photo { width: 100%; height: 100%; object-fit: cover; }
+        :root { 
+            --bg-deep: #09090b; 
+            --figma-blue: #18a0fb; 
+            --figma-purple: #a259ff;
+            --figma-red: #ff7262;
+        }
+        
+        body { 
+            background-color: var(--bg-deep); 
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(24, 160, 251, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(162, 89, 255, 0.1) 0px, transparent 50%);
+            color: #fafafa; 
+            font-family: 'Inter', sans-serif; 
+            min-height: 100vh; 
+            margin: 0; 
+            scroll-behavior: smooth;
+        }
+
+        .glass-panel { 
+            background: rgba(23, 23, 23, 0.7); 
+            backdrop-filter: blur(24px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .figma-gradient-text { 
+            background: linear-gradient(135deg, #18a0fb 0%, #a259ff 50%, #ff7262 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+
+        .profile-photo { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .photo-container:hover .profile-photo { transform: scale(1.1); }
+        
         .logo-invert { filter: invert(1); }
-        #contactModal { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
+        
+        .nav-item { transition: all 0.2s ease; border-left: 2px solid transparent; }
+        .nav-item:hover { background: rgba(255, 255, 255, 0.05); border-left: 2px solid var(--figma-blue); }
+
+        .service-card { transition: all 0.3s ease; }
+        .service-card:hover { transform: translateY(-4px); border-color: rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.03); }
+
+        .cta-gradient {
+            background: linear-gradient(135deg, rgba(24, 160, 251, 0.1) 0%, rgba(162, 89, 255, 0.1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #contactModal { 
+            display: none; 
+            position: fixed; 
+            inset: 0; 
+            z-index: 100; 
+            background: rgba(0, 0, 0, 0.9); 
+            backdrop-filter: blur(12px); 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
         #contactModal.active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade { animation: fadeIn 0.6s ease forwards; }
     </style>
 </head>
-<body class="p-4 md:p-10">
-    <div class="max-w-6xl mx-auto rounded-2xl overflow-hidden border border-white/5 shadow-2xl">
+<body class="p-4 md:p-8 lg:p-12">
+    <div id="top" class="max-w-6xl mx-auto rounded-3xl overflow-hidden glass-panel">
         <!-- TOP NAVBAR -->
-        <div class="bg-[#1e1e1e] px-4 py-2 border-b border-black flex items-center justify-between">
+        <div class="bg-[#1e1e1e]/80 px-6 py-3 border-b border-white/5 flex items-center justify-between">
             <div class="flex items-center gap-4">
+                <div class="flex gap-1.5 mr-2">
+                    <div class="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#febc2e]"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#28c840]"></div>
+                </div>
+                <div class="h-4 w-px bg-white/10 mx-2"></div>
                 <img src="image_b2de19.png" class="h-6 w-auto logo-invert" alt="Logo">
-                <span class="text-xs font-medium text-gray-400">Kim_Carlo_Portfolio / index.html</span>
+                <span class="text-[11px] font-medium text-gray-400 tracking-tight hidden sm:block">projects / portfolio_v2 / index.html</span>
             </div>
-            <button onclick="toggleModal()" class="bg-blue-600 px-3 py-1 rounded text-xs font-bold hover:bg-blue-500 transition-all">Contact</button>
+            <button onclick="toggleModal()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-1.5 rounded-full text-xs font-bold shadow-lg shadow-blue-600/20 transition-all active:scale-95">
+                Work With Me
+            </button>
         </div>
 
         <!-- MAIN LAYOUT -->
-        <div class="flex flex-col lg:flex-row bg-[#09090b]">
+        <div class="flex flex-col lg:flex-row min-h-[750px]">
             <!-- SIDEBAR -->
-            <div class="w-full lg:w-64 bg-[#121212] border-r border-white/5 p-4 space-y-6">
-                <p class="text-[10px] uppercase font-bold text-gray-500 tracking-wider">Navigation</p>
-                <div class="space-y-1">
-                    <div class="flex items-center gap-3 p-2 rounded bg-white/5 cursor-pointer">
-                        <i data-lucide="user" class="w-4 h-4 text-blue-400"></i>
-                        <span class="text-sm">Profile</span>
+            <div class="w-full lg:w-72 bg-[#121212]/50 border-r border-white/5 p-6 space-y-8">
+                <div>
+                    <p class="text-[10px] uppercase font-bold text-gray-500 tracking-[0.2em] mb-4">Main Menu</p>
+                    <div class="space-y-1">
+                        <div class="nav-item flex items-center gap-3 p-3 rounded-xl cursor-pointer bg-white/5 border-l-2 border-blue-400">
+                            <i data-lucide="layout" class="w-4 h-4 text-blue-400"></i>
+                            <span class="text-sm font-medium">Overview</span>
+                        </div>
+                        <div class="nav-item flex items-center gap-3 p-3 rounded-xl cursor-pointer">
+                            <i data-lucide="history" class="w-4 h-4 text-gray-400"></i>
+                            <span class="text-sm">Work History</span>
+                        </div>
+                        <div class="nav-item flex items-center gap-3 p-3 rounded-xl cursor-pointer" onclick="toggleModal()">
+                            <i data-lucide="zap" class="w-4 h-4 text-orange-400"></i>
+                            <span class="text-sm font-semibold text-orange-400">Hire Instantly</span>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-3 p-2 rounded hover:bg-white/5 cursor-pointer" onclick="toggleModal()">
-                        <i data-lucide="send" class="w-4 h-4 text-orange-400"></i>
-                        <span class="text-sm font-semibold text-orange-400">Hire Me</span>
+                </div>
+
+                <div class="pt-4 border-t border-white/5">
+                    <p class="text-[10px] uppercase font-bold text-gray-500 tracking-[0.2em] mb-4">Connect</p>
+                    <div class="flex gap-3 px-2">
+                        <a href="mailto:rabangkimcarlo@gmail.com" class="p-2 bg-white/5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="mail" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/kim-carlo-r-aa0486239" target="_blank" class="p-2 bg-white/5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- CONTENT AREA -->
-            <div class="flex-1 p-8">
-                <div class="flex flex-col md:flex-row gap-6 items-end mb-12">
-                    <div class="w-36 h-36 rounded-3xl bg-neutral-800 border-4 border-[#09090b] shadow-2xl overflow-hidden">
+            <div class="flex-1 p-6 md:p-10 lg:p-12 overflow-y-auto">
+                <!-- HERO SECTION -->
+                <div class="flex flex-col md:flex-row gap-8 items-center md:items-end mb-16 animate-fade">
+                    <div class="photo-container w-44 h-44 rounded-[40px] bg-neutral-800 border-8 border-white/5 shadow-2xl overflow-hidden shrink-0">
                         <img src="image_b2dad9.png" class="profile-photo" alt="Kim Carlo">
                     </div>
-                    <div>
-                        <h1 class="text-4xl font-bold figma-gradient-text">Kim Carlo Rabang</h1>
-                        <p class="text-gray-400 text-lg">Administrative Partner & Transaction Specialist</p>
+                    <div class="text-center md:text-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-wider mb-3">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                            </span>
+                            Active Operations
+                        </div>
+                        <h1 class="text-5xl font-black figma-gradient-text tracking-tight mb-2">Kim Carlo Rabang</h1>
+                        <p class="text-gray-400 text-xl font-light">Administrative Partner <span class="mx-2 text-white/10">|</span> Transaction Specialist</p>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="glass-panel p-6 rounded-2xl">
-                        <h2 class="text-sm font-bold text-blue-400 uppercase mb-4 tracking-tighter">Summary</h2>
-                        <p class="text-sm text-gray-300 leading-relaxed">
-                            3+ years experience in high-volume Real Estate operations. 
-                            Specialized in Contract-to-Close lifecycles, compliance review, 
-                            and digital case file management.
+                <!-- CARDS GRID -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+                    <div class="glass-panel p-8 rounded-[32px] border-white/5 hover:border-blue-500/30 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="text-quote" class="w-6 h-6 text-blue-400"></i>
+                        </div>
+                        <h2 class="text-sm font-bold text-white uppercase tracking-widest mb-4">Expert Summary</h2>
+                        <p class="text-sm text-gray-400 leading-relaxed italic">
+                            "3+ years navigating the complexities of high-volume Real Estate. I specialize in turning administrative chaos into audit-ready systems."
                         </p>
                     </div>
-                    <div class="glass-panel p-6 rounded-2xl">
-                        <h2 class="text-sm font-bold text-purple-400 uppercase mb-4 tracking-tighter">Technical Tools</h2>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-white/5 border border-white/10 px-3 py-1 rounded-full text-[11px]">MLS/Matrix</span>
-                            <span class="bg-white/5 border border-white/10 px-3 py-1 rounded-full text-[11px]">DocuSign</span>
-                            <span class="bg-white/5 border border-white/10 px-3 py-1 rounded-full text-[11px]">Crexi</span>
-                            <span class="bg-white/5 border border-white/10 px-3 py-1 rounded-full text-[11px]">Canva</span>
+
+                    <div class="glass-panel p-8 rounded-[32px] border-white/5 hover:border-purple-500/30 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="cpu" class="w-6 h-6 text-purple-400"></i>
                         </div>
+                        <h2 class="text-sm font-bold text-white uppercase tracking-widest mb-4">Tech Ecosystem</h2>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-xl text-[11px] font-medium hover:bg-white/10 transition-colors">MLS Matrix</span>
+                            <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-xl text-[11px] font-medium hover:bg-white/10 transition-colors">DocuSign</span>
+                            <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-xl text-[11px] font-medium hover:bg-white/10 transition-colors">Crexi</span>
+                            <span class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-xl text-[11px] font-medium hover:bg-white/10 transition-colors">Canva Pro</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TESTIMONIALS SECTION -->
+                <div class="mb-16">
+                    <h3 class="text-xs font-bold text-gray-500 uppercase tracking-[0.3em] mb-8 px-2">Client Success Stories</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="service-card p-6 rounded-2xl border border-white/5 bg-white/[0.02] flex flex-col justify-between h-full">
+                            <div>
+                                <div class="flex text-yellow-500 mb-3 gap-0.5">
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                </div>
+                                <p class="text-[12px] text-gray-300 mb-4">"Kim is incredibly detail-oriented. Our transaction timeline became 30% more efficient after he joined the team."</p>
+                            </div>
+                            <div class="text-[10px] font-bold text-blue-400 uppercase tracking-tighter">Real Estate Broker, FL</div>
+                        </div>
+
+                        <div class="service-card p-6 rounded-2xl border border-white/5 bg-white/[0.02] flex flex-col justify-between h-full">
+                            <div>
+                                <div class="flex text-yellow-500 mb-3 gap-0.5">
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                </div>
+                                <p class="text-[12px] text-gray-300 mb-4">"The social media designs and strategy Kim provided significantly boosted our engagement and lead generation."</p>
+                            </div>
+                            <div class="text-[10px] font-bold text-purple-400 uppercase tracking-tighter">Small Business Owner</div>
+                        </div>
+
+                        <div class="service-card p-6 rounded-2xl border border-white/5 bg-white/[0.02] flex flex-col justify-between h-full">
+                            <div>
+                                <div class="flex text-yellow-500 mb-3 gap-0.5">
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                </div>
+                                <p class="text-[12px] text-gray-300 mb-4">"Invaluable support for compliance and back-office operations. A true partner in growth."</p>
+                            </div>
+                            <div class="text-[10px] font-bold text-red-400 uppercase tracking-tighter">Operations Manager</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KEY COMPETENCIES -->
+                <div class="mb-16">
+                    <h3 class="text-xs font-bold text-gray-500 uppercase tracking-[0.3em] mb-8 px-2">Key Competencies</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="service-card p-6 rounded-2xl border border-white/5 bg-white/[0.02]">
+                            <h4 class="text-sm font-bold mb-2">Transaction Mgmt</h4>
+                            <p class="text-[11px] text-gray-500">Contract-to-close precision and compliance auditing.</p>
+                        </div>
+                        <div class="service-card p-6 rounded-2xl border border-white/5 bg-white/[0.02]">
+                            <h4 class="text-sm font-bold mb-2">SMM Strategy</h4>
+                            <p class="text-[11px] text-gray-500">Brand visibility and creative social media execution.</p>
+                        </div>
+                        <div class="service-card p-6 rounded-2xl border border-white/5 bg-white/[0.02]">
+                            <h4 class="text-sm font-bold mb-2">Systems Optimization</h4>
+                            <p class="text-[11px] text-gray-500">Building seamless cloud-based file management.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CALL TO ACTION SECTION -->
+                <div class="cta-gradient p-10 md:p-12 rounded-[40px] text-center relative overflow-hidden group mb-12">
+                    <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(24,160,251,0.1),transparent_70%)] pointer-events-none"></div>
+                    <h2 class="text-3xl md:text-4xl font-black mb-4 relative z-10 tracking-tight">Ready to streamline your <span class="figma-gradient-text">Operations?</span></h2>
+                    <p class="text-gray-400 text-sm md:text-base max-w-xl mx-auto mb-10 relative z-10">
+                        I am currently accepting new clients for Transaction Coordination and Social Media Management projects. Let's discuss your business goals.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+                        <button onclick="toggleModal()" class="w-full sm:w-auto px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-2xl shadow-xl shadow-blue-600/20 transition-all active:scale-95 text-sm tracking-widest">
+                            GET STARTED
+                        </button>
+                        <div class="flex gap-4">
+                            <a href="mailto:rabangkimcarlo@gmail.com" class="p-4 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-colors group-hover:border-white/20">
+                                <i data-lucide="mail" class="w-5 h-5 text-gray-400"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/kim-carlo-r-aa0486239" target="_blank" class="p-4 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-colors group-hover:border-white/20">
+                                <i data-lucide="linkedin" class="w-5 h-5 text-gray-400"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOOTER -->
+                <div class="flex flex-col md:flex-row justify-between items-center px-4 py-8 border-t border-white/5 gap-4">
+                    <p class="text-[10px] text-gray-600 font-medium tracking-widest uppercase">© 2024 Kim Carlo Rabang</p>
+                    <div class="flex items-center gap-8">
+                        <a href="#top" class="text-[10px] text-gray-500 hover:text-blue-400 transition-colors font-bold uppercase tracking-[0.2em] flex items-center gap-2">
+                            Back to Top <i data-lucide="arrow-up" class="w-3 h-3"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL -->
+    <!-- CONTACT MODAL -->
     <div id="contactModal" onclick="if(event.target === this) toggleModal()">
-        <div class="glass-panel w-full max-w-md p-8 rounded-3xl relative">
-            <h2 class="text-2xl font-bold mb-4 text-center">Let's <span class="figma-gradient-text">Work Together</span></h2>
-            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Message sent successfully!'); toggleModal();">
-                <input type="text" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500">
-                <textarea placeholder="How can I help you?" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500" rows="3"></textarea>
-                <button class="w-full py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition-all">Send Inquiry</button>
+        <div class="glass-panel w-full max-w-md p-10 rounded-[40px] relative border-white/20">
+            <h2 class="text-3xl font-black mb-2 text-center tracking-tight">Let's <span class="figma-gradient-text">Partner Up</span></h2>
+            <p class="text-gray-500 text-xs text-center mb-8">Direct collaboration or project inquiries</p>
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Inquiry received! Looking forward to connecting.'); toggleModal();">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase ml-2">Name</label>
+                    <input type="text" required placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm focus:outline-none focus:border-blue-500 transition-all">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase ml-2">Message</label>
+                    <textarea required placeholder="Tell me about your project..." class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm focus:outline-none focus:border-blue-500 transition-all" rows="4"></textarea>
+                </div>
+                <button class="w-full py-4 bg-blue-600 rounded-2xl font-black text-sm tracking-widest hover:bg-blue-500 transition-all shadow-xl shadow-blue-600/30">
+                    SEND TRANSMISSION
+                </button>
             </form>
         </div>
     </div>
 
     <script>
-        // Initialize Icons
         lucide.createIcons();
-        // Toggle Function
         function toggleModal() {
             document.getElementById('contactModal').classList.toggle('active');
         }
