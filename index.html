@@ -26,46 +26,53 @@
             overflow-x: hidden;
         }
 
+        /* Neumorphic Shadows */
         .neu-flat {
             background: var(--neu-bg);
-            box-shadow: 9px 9px 16px var(--neu-shadow), 
-                       -9px -9px 16px var(--neu-light);
+            box-shadow: 6px 6px 12px var(--neu-shadow), 
+                       -6px -6px 12px var(--neu-light);
         }
 
         .neu-inset {
             background: var(--neu-bg);
-            box-shadow: inset 6px 6px 12px var(--neu-shadow), 
-                        inset -6px -6px 12px var(--neu-light);
+            box-shadow: inset 4px 4px 8px var(--neu-shadow), 
+                        inset -4px -4px 8px var(--neu-light);
         }
 
         .neu-button {
             background: var(--neu-bg);
-            box-shadow: 6px 6px 12px var(--neu-shadow), 
-                       -6px -6px 12px var(--neu-light);
+            box-shadow: 5px 5px 10px var(--neu-shadow), 
+                       -5px -5px 10px var(--neu-light);
             transition: all 0.2s ease;
         }
 
         .neu-button:active {
-            box-shadow: inset 4px 4px 8px var(--neu-shadow), 
-                        inset -4px -4px 8px var(--neu-light);
+            box-shadow: inset 3px 3px 6px var(--neu-shadow), 
+                        inset -3px -3px 6px var(--neu-light);
             transform: scale(0.98);
         }
 
         .neu-card {
-            border-radius: 30px;
+            border-radius: 24px;
             background: var(--neu-bg);
-            box-shadow: 12px 12px 24px var(--neu-shadow), 
-                       -12px -12px 24px var(--neu-light);
+            box-shadow: 10px 10px 20px var(--neu-shadow), 
+                       -10px -10px 20px var(--neu-light);
+        }
+
+        @media (min-width: 768px) {
+            .neu-card { border-radius: 32px; }
+            .neu-flat { box-shadow: 9px 9px 16px var(--neu-shadow), -9px -9px 16px var(--neu-light); }
         }
 
         .tool-badge {
             background: var(--neu-bg);
-            box-shadow: 3px 3px 6px var(--neu-shadow), 
-                       -3px -3px 6px var(--neu-light);
+            box-shadow: 2px 2px 5px var(--neu-shadow), 
+                       -2px -2px 5px var(--neu-light);
             padding: 6px 12px;
             border-radius: 10px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
+            white-space: nowrap;
         }
 
         #contactModal { 
@@ -73,10 +80,11 @@
             position: fixed; 
             inset: 0; 
             z-index: 999; 
-            background: rgba(224, 229, 236, 0.8); 
-            backdrop-filter: blur(10px); 
+            background: rgba(224, 229, 236, 0.9); 
+            backdrop-filter: blur(12px); 
             align-items: center; 
             justify-content: center; 
+            padding: 16px;
         }
         #contactModal.active { display: flex; }
         
@@ -92,200 +100,258 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        .iframe-container {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--neu-bg);
+            box-shadow: inset 4px 4px 10px var(--neu-shadow), 
+                        inset -4px -4px 10px var(--neu-light);
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+            height: 100%;
+        }
+
+        /* Social Hover Effects */
+        .social-btn {
+            color: var(--text-main);
+            opacity: 0.6;
+        }
+        .social-btn:hover {
+            opacity: 1;
+        }
+        .social-btn:hover .icon-ig { color: #E1306C; }
+        .social-btn:hover .icon-wa { color: #25D366; }
+        .social-btn:hover .icon-fb { color: #1877F2; }
+        .social-btn:hover .icon-li { color: #0A66C2; }
     </style>
 </head>
-<body class="p-4 md:p-12">
-    <div class="max-w-6xl mx-auto space-y-12">
+<body class="p-4 md:p-8 lg:p-12">
+    <div class="max-w-6xl mx-auto space-y-8 md:space-y-12">
         
         <!-- HEADER -->
-        <header class="flex flex-col md:flex-row justify-between items-center gap-6 p-8 neu-card">
-            <div class="flex items-center gap-4">
-                <div class="w-16 h-16 rounded-2xl neu-flat overflow-hidden p-1">
+        <header class="flex flex-col md:flex-row justify-between items-center gap-6 p-6 md:p-8 neu-card">
+            <div class="flex items-center gap-4 w-full md:w-auto">
+                <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl neu-flat overflow-hidden p-1 flex-shrink-0">
                     <img src="image_b2dad9.png" class="profile-photo rounded-xl" alt="K">
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold uppercase tracking-tighter">Kim Carlo</h1>
-                    <p class="text-xs font-semibold text-slate-500 opacity-70">Real Estate Admin & Graphics Specialist</p>
+                    <h1 class="text-lg md:text-xl font-bold uppercase tracking-tighter">Kim Carlo</h1>
+                    <p class="text-[10px] md:text-xs font-semibold text-slate-500 opacity-70">Real Estate Admin & Graphics Specialist</p>
                 </div>
             </div>
-            <button onclick="toggleModal()" class="neu-button px-8 py-3 rounded-2xl text-sm font-bold text-blue-600">
+            <button onclick="toggleModal()" class="neu-button w-full md:w-auto px-8 py-3 rounded-2xl text-sm font-bold text-blue-600">
                 Book Consultation
             </button>
         </header>
 
         <main class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
-            <!-- Left Column: Core Services -->
-            <div class="lg:col-span-8 space-y-8">
-                
-                <!-- Hero Introduction -->
-                <div class="neu-card p-10 space-y-6">
+            <!-- Left Column -->
+            <div class="lg:col-span-8 space-y-8 order-2 lg:order-1">
+                <!-- Hero Section -->
+                <div class="neu-card p-8 md:p-10 space-y-6">
                     <div class="neu-inset inline-block px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-500">
                         Operational Admin & Visual Identity
                     </div>
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-slate-800 leading-tight">
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-slate-800 leading-tight">
                         Powering your <span class="text-blue-500">Admin</span> and polishing your <span class="gradient-text">Graphics.</span>
                     </h2>
-                    <p class="text-slate-600 leading-relaxed max-w-2xl">
+                    <p class="text-sm md:text-base text-slate-600 leading-relaxed max-w-2xl">
                         I specialize in the two pillars of a successful real estate business: seamless administrative support to keep transactions compliant, and high-quality graphic design to keep your brand professional and engaging.
                     </p>
                 </div>
 
-                <!-- DUAL FOCUS TILES -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Tile 1: Admin & Real Estate -->
-                    <div class="neu-card p-8 space-y-6">
+                <!-- Client Reviews Section -->
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between px-2">
+                        <h3 class="font-bold text-xs uppercase text-slate-500 tracking-[0.2em]">Client Testimonials</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Review 1 -->
+                        <div class="neu-card p-6 flex flex-col justify-between space-y-4">
+                            <div class="flex gap-1 text-orange-400">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <p class="text-sm italic text-slate-600 leading-relaxed">
+                                "Kim's attention to detail in MLS maintenance and compliance is unmatched. He has saved our team countless hours on transaction coordination."
+                            </p>
+                            <div class="pt-4 border-t border-slate-200/50">
+                                <p class="font-bold text-xs text-slate-800 tracking-wide uppercase">Managing Broker</p>
+                                <p class="text-[10px] text-slate-400 font-semibold uppercase">Confidential Client</p>
+                            </div>
+                        </div>
+
+                        <!-- Review 2 -->
+                        <div class="neu-card p-6 flex flex-col justify-between space-y-4">
+                            <div class="flex gap-1 text-orange-400">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <p class="text-sm italic text-slate-600 leading-relaxed">
+                                "The Canva templates Kim created perfectly match our brand identity. Professional, modern, and very easy for us to use daily."
+                            </p>
+                            <div class="pt-4 border-t border-slate-200/50">
+                                <p class="font-bold text-xs text-slate-800 tracking-wide uppercase">Agent Name</p>
+                                <p class="text-[10px] text-slate-400 font-semibold uppercase">Real Estate Professional</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <!-- Admin Expertise -->
+                    <div class="neu-card p-6 md:p-8 space-y-6">
                         <div class="flex items-center gap-3 text-blue-600">
-                            <i data-lucide="home" class="w-6 h-6"></i>
+                            <i data-lucide="home" class="w-5 h-5 md:w-6 md:h-6"></i>
                             <h3 class="font-bold text-lg">Real Estate Admin</h3>
                         </div>
                         <ul class="space-y-3 text-sm text-slate-600">
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
-                                <span>MLS / Matrix Maintenance</span>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0"></i>
+                                <span>MLS & Matrix Maintenance</span>
                             </li>
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
-                                <span>DocuSign & Agreement Prep</span>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0"></i>
+                                <span>DocuSign & Dotloop Management</span>
                             </li>
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
-                                <span>SkySlope File Compliance</span>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0"></i>
+                                <span>CRM: Lofty, BoldTrail & LionDesk</span>
                             </li>
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
-                                <span>Property Data Entry (Crexi)</span>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0"></i>
+                                <span>KW Command & Software Workflows</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Tile 2: Graphics Studio -->
-                    <div class="neu-card p-8 space-y-6">
+                    <!-- Graphics Expertise -->
+                    <div class="neu-card p-6 md:p-8 space-y-6">
                         <div class="flex items-center gap-3 text-purple-600">
-                            <i data-lucide="image" class="w-6 h-6"></i>
+                            <i data-lucide="image" class="w-5 h-5 md:w-6 md:h-6"></i>
                             <h3 class="font-bold text-lg">Visual Graphics</h3>
                         </div>
                         <ul class="space-y-3 text-sm text-slate-600">
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
-                                <span>Social Media Brand Graphics</span>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0"></i>
+                                <span>Social Media Brand Identity</span>
                             </li>
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
-                                <span>Listing Flyer & Postcard Design</span>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0"></i>
+                                <span>Video Editing with CapCut</span>
                             </li>
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
-                                <span>Custom Canva Templates</span>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0"></i>
+                                <span>Meta Business Suite Management</span>
                             </li>
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
-                                <span>Instagram/FB Post Assets</span>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0"></i>
+                                <span>Custom Canva Pro Templates</span>
                             </li>
                         </ul>
                     </div>
                 </div>
-
-                <!-- Client Testimonials -->
-                <div class="space-y-6">
-                    <h3 class="text-xl font-bold px-4">Trusted By Professionals</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="neu-inset p-8 rounded-[32px] space-y-4">
-                            <div class="flex text-yellow-500">
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                            </div>
-                            <p class="italic text-sm text-slate-600 leading-relaxed">
-                                "Kim manages my listings with zero errors. His ability to handle the paperwork while also making my social media look premium is a total game changer."
-                            </p>
-                            <p class="text-[10px] font-bold uppercase text-slate-400">— Agent Name</p>
-                        </div>
-                        <div class="neu-inset p-8 rounded-[32px] space-y-4">
-                            <div class="flex text-yellow-500">
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                            </div>
-                            <p class="italic text-sm text-slate-600 leading-relaxed">
-                                "Fast, efficient, and creative. Kim understands the balance between real estate rules and modern aesthetic appeal."
-                            </p>
-                            <p class="text-[10px] font-bold uppercase text-slate-400">— Agent Name</p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <!-- Right Column: Personal Branding & Tools -->
-            <div class="lg:col-span-4 space-y-8">
-                <div class="neu-card p-4 aspect-square">
-                    <img src="image_b2dad9.png" class="w-full h-full object-cover rounded-[20px]" alt="Kim Carlo">
+            <!-- Right Column -->
+            <div class="lg:col-span-4 space-y-8 order-1 lg:order-2">
+                <!-- Profile Image -->
+                <div class="neu-card p-3 md:p-4 aspect-square max-w-[300px] lg:max-w-full mx-auto">
+                    <img src="image_b2dad9.png" class="w-full h-full object-cover rounded-[18px] md:rounded-[20px]" alt="Kim Carlo">
                 </div>
                 
-                <!-- Expanded Toolbox -->
-                <div class="neu-card p-8 space-y-6">
-                    <h4 class="font-bold text-xs uppercase text-slate-500 tracking-widest">The Toolkit</h4>
-                    <div class="space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="tool-badge text-blue-600">MLS Matrix</span>
-                            <span class="tool-badge text-blue-600">SkySlope</span>
-                            <span class="tool-badge text-emerald-600">GoHighLevel</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="tool-badge text-purple-600">Canva Pro</span>
-                            <span class="tool-badge text-purple-600">Adobe PDF</span>
-                            <span class="tool-badge text-purple-600">CapCut</span>
-                        </div>
+                <!-- Social Connect Section -->
+                <div class="neu-card p-6 md:p-8 space-y-6">
+                    <h4 class="font-bold text-[10px] uppercase text-slate-500 tracking-widest text-center">Connect with Me</h4>
+                    <div class="grid grid-cols-4 gap-3">
+                        <a href="https://www.linkedin.com/in/kim-carlo-r-aa0486239/" target="_blank" class="social-btn aspect-square rounded-xl neu-button flex items-center justify-center">
+                            <i data-lucide="linkedin" class="icon-li w-5 h-5 md:w-6 md:h-6"></i>
+                        </a>
+                        <a href="https://www.instagram.com/kmcrlrbng/?hl=en" target="_blank" class="social-btn aspect-square rounded-xl neu-button flex items-center justify-center">
+                            <i data-lucide="instagram" class="icon-ig w-5 h-5 md:w-6 md:h-6"></i>
+                        </a>
+                        <a href="https://wa.me/+639154076472" target="_blank" class="social-btn aspect-square rounded-xl neu-button flex items-center justify-center">
+                            <i data-lucide="message-circle" class="icon-wa w-5 h-5 md:w-6 md:h-6"></i>
+                        </a>
+                        <a href="https://www.facebook.com/kim.carlo.rabang/" target="_blank" class="social-btn aspect-square rounded-xl neu-button flex items-center justify-center">
+                            <i data-lucide="facebook" class="icon-fb w-5 h-5 md:w-6 md:h-6"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Availability Badge -->
-                <div class="neu-card p-8 space-y-4 text-center">
+                <!-- Toolkit Badges -->
+                <div class="neu-card p-6 md:p-8 space-y-6">
+                    <h4 class="font-bold text-[10px] uppercase text-slate-500 tracking-widest">Full Toolkit</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tool-badge text-blue-600">Lofty</span>
+                        <span class="tool-badge text-blue-600">BoldTrail</span>
+                        <span class="tool-badge text-blue-600">LionDesk</span>
+                        <span class="tool-badge text-blue-600">Dotloop</span>
+                        <span class="tool-badge text-blue-600">Docusign</span>
+                        <span class="tool-badge text-blue-600">MLS Matrix</span>
+                        <span class="tool-badge text-blue-600">KW Command</span>
+                        <span class="tool-badge text-emerald-600">GoHighLevel</span>
+                        <span class="tool-badge text-purple-600">CapCut</span>
+                        <span class="tool-badge text-purple-600">Meta Business</span>
+                        <span class="tool-badge text-purple-600">Canva Pro</span>
+                    </div>
+                </div>
+
+                <!-- Status Badge -->
+                <div class="neu-card p-6 md:p-8 space-y-4 text-center">
                     <div class="inline-flex items-center gap-3">
-                        <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
-                        <span class="text-sm font-bold uppercase tracking-wider">Accepting Clients</span>
+                        <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-600">Available for Hire</span>
                     </div>
                 </div>
             </div>
-
         </main>
 
-        <footer class="text-center py-12 opacity-50 border-t border-slate-300">
-            <p class="text-xs font-bold uppercase tracking-[0.4em]">Kim Carlo Rabang &copy; 2024</p>
+        <footer class="text-center py-8 opacity-50 border-t border-slate-300">
+            <p class="text-[10px] font-bold uppercase tracking-[0.2em]">Kim Carlo Rabang &copy; 2024</p>
         </footer>
     </div>
 
-    <!-- MODAL -->
+    <!-- CONTACT MODAL -->
     <div id="contactModal" onclick="if(event.target === this) toggleModal()">
-        <div class="neu-card w-full max-w-lg p-12 relative mx-4">
-            <button onclick="toggleModal()" class="absolute top-6 right-6 w-10 h-10 neu-button rounded-full flex items-center justify-center">
-                <i data-lucide="x" class="w-5 h-5"></i>
+        <div class="neu-card w-full max-w-2xl p-4 md:p-8 relative mx-auto h-[90vh] md:h-auto md:max-h-[90vh] flex flex-col">
+            <button onclick="toggleModal()" class="absolute top-4 right-4 md:top-6 md:right-6 w-9 h-9 md:w-10 md:h-10 neu-button rounded-full flex items-center justify-center z-10">
+                <i data-lucide="x" class="w-4 h-4 md:w-5 md:h-5"></i>
             </button>
-            <h2 class="text-3xl font-extrabold mb-8">Work with Me</h2>
-            <form class="space-y-6" onsubmit="event.preventDefault(); alert('Inquiry sent!'); toggleModal();">
-                <div class="space-y-1">
-                    <label class="text-[10px] font-bold uppercase text-slate-400 ml-2">Services Needed</label>
-                    <div class="flex flex-wrap gap-2 p-2">
-                         <label class="text-xs flex items-center gap-2"><input type="checkbox"> Real Estate Admin</label>
-                         <label class="text-xs flex items-center gap-2"><input type="checkbox"> Social Media Graphics</label>
-                    </div>
-                </div>
-                <input type="text" required class="w-full neu-inset rounded-2xl px-6 py-4 outline-none text-sm" placeholder="Your Name">
-                <input type="email" required class="w-full neu-inset rounded-2xl px-6 py-4 outline-none text-sm" placeholder="Email Address">
-                <textarea rows="4" class="w-full neu-inset rounded-2xl px-6 py-4 outline-none text-sm" placeholder="Tell me about your business goals..."></textarea>
-                <button type="submit" class="w-full neu-button py-4 rounded-2xl font-bold text-blue-600 uppercase text-xs">Send Request</button>
-            </form>
+            <div class="text-center mb-4 md:mb-6 mt-4">
+                <h2 class="text-xl md:text-3xl font-extrabold mb-1">Book a Consultation</h2>
+                <p class="text-[10px] md:text-sm text-slate-500">I'll get back to you within 24 hours.</p>
+            </div>
+            
+            <div class="iframe-container flex-grow min-h-[400px]">
+                <iframe 
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSfmcEvZy7fhZ6CeiB-eJ9Iy5audIFWF1-uiSebMuHRJBNgq6Q/viewform?embedded=true" 
+                    width="100%" 
+                    height="100%" 
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0">
+                    Loading…
+                </iframe>
+            </div>
         </div>
     </div>
 
     <script>
         lucide.createIcons();
         function toggleModal() { 
-            document.getElementById('contactModal').classList.toggle('active');
+            const modal = document.getElementById('contactModal');
+            modal.classList.toggle('active');
+            document.body.style.overflow = modal.classList.contains('active') ? 'hidden' : 'auto';
         }
     </script>
 </body>
