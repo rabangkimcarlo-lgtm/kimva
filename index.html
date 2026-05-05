@@ -1,208 +1,739 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kim Carlo Rabang | Professional Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        :root {
-            --bg-base: #0a0a0a;
-            --accent-blue: #3b82f6;
-            --border-muted: rgba(255, 255, 255, 0.05);
-            --card-glass: rgba(18, 18, 18, 0.8);
-        }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kim Carlo G. Rabang — AI Automation & Real Estate VA</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #060d0a;
+    --surface: #0d1a12;
+    --surface2: #142018;
+    --border: #1e3328;
+    --text: #e8f5ee;
+    --muted: #6b9e7e;
+    --accent: #22c55e;
+    --accent2: #16a34a;
+    --accent-glow: rgba(34,197,94,0.15);
+    --white: #ffffff;
+  }
+  .light {
+    --bg: #f0faf4;
+    --surface: #ffffff;
+    --surface2: #e8f5ee;
+    --border: #bbf7d0;
+    --text: #0d1a12;
+    --muted: #4d7c62;
+    --accent: #16a34a;
+    --accent2: #15803d;
+    --accent-glow: rgba(22,163,74,0.08);
+    --white: #0d1a12;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    transition: background 0.4s, color 0.4s;
+    overflow-x: hidden;
+  }
 
-        body { 
-            background-color: var(--bg-base);
-            color: #d1d5db;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: -0.01em;
-        }
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:0;
+    opacity:0.4;
+  }
 
-        /* Sophisticated UI Elements */
-        .glass-container {
-            background: var(--card-glass);
-            border: 1px solid var(--border-muted);
-            backdrop-filter: blur(12px);
-        }
+  /* ── NAV ── */
+  nav {
+    position:fixed; top:0; left:0; right:0;
+    z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 48px;
+    background: transparent;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.4s;
+  }
+  .nav-logo {
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    font-size:18px;
+    letter-spacing:-0.5px;
+    color:var(--text);
+  }
+  .nav-logo span { color:var(--accent); }
+  .nav-links { display:flex; gap:32px; align-items:center; }
+  .nav-links a {
+    font-size:13px;
+    font-weight:400;
+    color:var(--muted);
+    text-decoration:none;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    transition:color 0.2s;
+  }
+  .nav-links a:hover { color:var(--text); }
+  .theme-toggle {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width:36px; height:36px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:16px;
+    display:flex; align-items:center; justify-content:center;
+    transition:all 0.2s;
+  }
+  .theme-toggle:hover { border-color:var(--accent); }
 
-        .section-header {
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: #6b7280;
-            border-left: 2px solid var(--accent-blue);
-            padding-left: 12px;
-            margin-bottom: 24px;
-        }
+  /* ── HERO ── */
+  .hero {
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding:120px 48px 80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-bg {
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse 60% 60% at 70% 50%, var(--accent-glow), transparent);
+    pointer-events:none;
+  }
+  .hero-grid {
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:60px 60px;
+    opacity:0.3;
+    pointer-events:none;
+  }
+  .hero-content { position:relative; z-index:1; max-width:900px; }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:100px;
+    padding:6px 16px;
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:32px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge .dot {
+    width:6px; height:6px; border-radius:50%;
+    background:var(--accent);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:0.5;transform:scale(1.3)}
+  }
+  .hero-name {
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    font-size:clamp(52px,8vw,96px);
+    line-height:0.95;
+    letter-spacing:-3px;
+    color:var(--text);
+    margin-bottom:8px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-name .accent { color:var(--accent); }
+  .hero-tagline {
+    font-family:'Syne',sans-serif;
+    font-size:clamp(18px,3vw,28px);
+    font-weight:600;
+    color:var(--muted);
+    margin-bottom:32px;
+    letter-spacing:-0.5px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-desc {
+    font-size:16px;
+    line-height:1.8;
+    color:var(--muted);
+    max-width:560px;
+    margin-bottom:48px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .hero-cta {
+    display:flex; gap:16px; flex-wrap:wrap;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .btn-primary {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--accent);
+    color:#fff;
+    padding:14px 28px;
+    border-radius:6px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:0.3px;
+    transition:all 0.2s;
+    border:none; cursor:pointer;
+  }
+  .btn-primary:hover { background:#c45000; transform:translateY(-2px); }
+  .btn-secondary {
+    display:inline-flex; align-items:center; gap:8px;
+    background:transparent;
+    color:var(--text);
+    padding:14px 28px;
+    border-radius:6px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+    border:1px solid var(--border);
+    transition:all 0.2s;
+  }
+  .btn-secondary:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
 
-        .stat-card {
-            border-right: 1px solid var(--border-muted);
-        }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(24px); }
+    to { opacity:1; transform:translateY(0); }
+  }
 
-        @media (max-width: 768px) {
-            .stat-card { border-right: none; border-bottom: 1px solid var(--border-muted); }
-        }
+  /* ── SECTIONS ── */
+  section { padding:100px 48px; position:relative; z-index:1; }
+  .section-label {
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:500;
+    margin-bottom:16px;
+  }
+  .section-title {
+    font-family:'Syne',sans-serif;
+    font-size:clamp(32px,4vw,52px);
+    font-weight:800;
+    letter-spacing:-2px;
+    line-height:1;
+    color:var(--text);
+    margin-bottom:48px;
+  }
 
-        .btn-primary {
-            background: #ffffff;
-            color: #000000;
-            font-weight: 700;
-            transition: all 0.2s ease;
-        }
+  /* ── SERVICES ── */
+  .services-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:16px;
+  }
+  .service-card {
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:32px;
+    transition:all 0.3s;
+    position:relative;
+    overflow:hidden;
+  }
+  .service-card::before {
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:2px;
+    background:linear-gradient(90deg, #22c55e, #86efac);
+    opacity:0;
+    transition:opacity 0.3s;
+  }
+  .service-card:hover { border-color:var(--accent); transform:translateY(-4px); }
+  .service-card:hover::before { opacity:1; }
+  .service-icon {
+    font-size:28px;
+    margin-bottom:16px;
+  }
+  .service-title {
+    font-family:'Syne',sans-serif;
+    font-size:18px;
+    font-weight:700;
+    color:var(--text);
+    margin-bottom:8px;
+  }
+  .service-desc {
+    font-size:14px;
+    line-height:1.7;
+    color:var(--muted);
+  }
 
-        .btn-primary:hover {
-            background: #e5e7eb;
-            transform: translateY(-1px);
-        }
+  /* ── SKILLS ── */
+  .skills-section { background:var(--surface); }
+  .skills-wrap {
+    display:flex; flex-wrap:wrap; gap:12px;
+  }
+  .skill-tag {
+    background:var(--surface2);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:8px 20px;
+    border-radius:100px;
+    font-size:13px;
+    font-weight:400;
+    transition:all 0.2s;
+    cursor:default;
+  }
+  .skill-tag:hover { border-color:var(--accent); color:var(--accent); }
 
-        .profile-image {
-            filter: grayscale(20%) contrast(1.1);
-            object-fit: cover;
-            object-position: top;
-        }
+  /* ── LINKS ── */
+  .links-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:16px;
+  }
+  .link-card {
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:28px 32px;
+    text-decoration:none;
+    display:flex; align-items:center; justify-content:space-between;
+    transition:all 0.3s;
+    color:var(--text);
+  }
+  .link-card:hover { border-color:var(--accent); transform:translateY(-3px); }
+  .link-card-left { display:flex; align-items:center; gap:16px; }
+  .link-icon {
+    width:44px; height:44px;
+    background:var(--surface2);
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+  }
+  .link-title {
+    font-family:'Syne',sans-serif;
+    font-size:16px;
+    font-weight:700;
+    color:var(--text);
+  }
+  .link-sub { font-size:12px; color:var(--muted); margin-top:2px; }
+  .link-arrow { color:var(--muted); font-size:20px; transition:transform 0.2s; }
+  .link-card:hover .link-arrow { transform:translate(4px,-4px); color:var(--accent); }
 
-        #contactModal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.95);
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        #contactModal.active { display: flex; }
+  /* ── CTA ── */
+  .cta-section {
+    text-align:center;
+    background: linear-gradient(135deg, var(--surface), var(--bg));
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+  .cta-section .section-title { margin-bottom:16px; }
+  .cta-desc { color:var(--muted); font-size:16px; margin-bottom:40px; max-width:480px; margin-left:auto; margin-right:auto; }
+  .email-link {
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--accent);
+    font-size:14px;
+    text-decoration:none;
+    border:1px solid var(--accent);
+    padding:12px 24px;
+    border-radius:6px;
+    transition:all 0.2s;
+    margin-top:16px;
+  }
+  .email-link:hover { background:var(--accent); color:#fff; }
 
-        .gform-container {
-            width: 100%;
-            height: 100%;
-            background: white;
-        }
-    </style>
+  /* ── FOOTER ── */
+  footer {
+    padding:32px 48px;
+    display:flex; align-items:center; justify-content:space-between;
+    border-top:1px solid var(--border);
+    color:var(--muted);
+    font-size:12px;
+    position:relative; z-index:1;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--border), transparent);
+    margin:0 48px;
+  }
+
+  @media(max-width:768px){
+    nav { padding:16px 24px; }
+    .hero { padding:100px 24px 60px; }
+    section { padding:60px 24px; }
+    footer { padding:24px; flex-direction:column; gap:8px; text-align:center; }
+    .nav-links a:not(:last-child) { display:none; }
+    .divider { margin:0 24px; }
+  }
+</style>
 </head>
-<body class="antialiased">
+<body>
 
-<div class="min-h-screen flex flex-col">
-    <!-- TOP NAVIGATION -->
-    <nav class="border-b border-white/5 px-6 py-4 flex justify-between items-center bg-black/50 sticky top-0 z-50 backdrop-blur-md">
-        <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-white flex items-center justify-center font-black text-black text-xs">KC</div>
-            <span class="text-[11px] font-bold tracking-widest text-gray-500 uppercase">Executive Operations</span>
-        </div>
-        <div class="flex items-center gap-8">
-            <a href="#experience" class="text-xs font-semibold text-gray-400 hover:text-white transition-colors">Experience</a>
-            <a href="https://drive.google.com/drive/folders/1FJNMu0ufCtqS530vNjeyy5HDEGCAHxY-?usp=drive_link" target="_blank" class="text-xs font-semibold text-gray-400 hover:text-white transition-colors">Design Docs</a>
-            <button onclick="toggleModal()" class="btn-primary px-5 py-2 text-[11px] uppercase tracking-tighter">Inquiry Form</button>
-        </div>
-    </nav>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">KC<span>.</span></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#skills">Skills</a>
+    <a href="#work">Work</a>
+    <a href="#links">Portfolio</a>
+    <a href="#contact">Contact</a>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+  </div>
+</nav>
 
-    <main class="flex-1 max-w-6xl mx-auto w-full px-6 py-12 lg:py-20">
-        <!-- HERO SECTION -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
-            <div class="lg:col-span-7 flex flex-col justify-center">
-                <h1 class="text-5xl lg:text-7xl font-black text-white leading-none mb-8">
-                    PRECISION <br><span class="text-blue-500">SYSTEMS</span> & <br>DESIGN.
-                </h1>
-                <p class="text-lg text-gray-400 max-w-md leading-relaxed mb-10">
-                    Administrative Specialist focused on high-stakes real estate transactions, compliance architecture, and corporate visual strategy.
-                </p>
-                <div class="flex gap-4">
-                    <button onclick="toggleModal()" class="btn-primary px-8 py-4 text-xs uppercase tracking-widest">Open Inquiry Form</button>
-                    <button onclick="window.open('https://wa.me/+639154076472', '_blank')" class="border border-white/10 hover:bg-white/5 px-8 py-4 text-xs uppercase tracking-widest transition-all">WhatsApp</button>
-                </div>
-            </div>
-            <div class="lg:col-span-5">
-                <div class="aspect-[4/5] w-full glass-container p-3">
-                    <img src="image_b2dad9.png" class="profile-image w-full h-full grayscale" alt="Kim Carlo">
-                </div>
-            </div>
-        </div>
-
-        <!-- CORE CAPABILITIES -->
-        <div id="experience" class="grid grid-cols-1 md:grid-cols-3 glass-container mb-24">
-            <div class="p-10 stat-card">
-                <div class="section-header">Real Estate Admin</div>
-                <h3 class="text-xl font-bold text-white mb-4">Transaction Lifecycle</h3>
-                <p class="text-sm text-gray-500 leading-relaxed">
-                    End-to-end management of listing agreements, MLS/Matrix entries, and contract-to-close compliance auditing.
-                </p>
-            </div>
-            <div class="p-10 stat-card">
-                <div class="section-header">Operational Tech</div>
-                <h3 class="text-xl font-bold text-white mb-4">CRM Architecture</h3>
-                <p class="text-sm text-gray-500 leading-relaxed">
-                    Structuring Lofty, BoldTrail, and GoHighLevel workflows to maximize lead conversion and data integrity.
-                </p>
-            </div>
-            <div class="p-10">
-                <div class="section-header">Visual Strategy</div>
-                <h3 class="text-xl font-bold text-white mb-4">Creative Direction</h3>
-                <p class="text-sm text-gray-500 leading-relaxed">
-                    High-fidelity marketing assets using Canva Pro and Adobe Suite for luxury listings and corporate branding.
-                </p>
-            </div>
-        </div>
-
-        <!-- FOLDER ACCESS SECTION (UPDATED LINK) -->
-        <div class="border border-white/5 bg-white/[0.02] p-12 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-                <h2 class="text-2xl font-black text-white mb-2 uppercase tracking-tight">Technical Design Assets</h2>
-                <p class="text-gray-500 text-sm">Review sample marketing kits, social media designs, and brand identity projects.</p>
-            </div>
-            <a href="https://drive.google.com/drive/folders/1FJNMu0ufCtqS530vNjeyy5HDEGCAHxY-?usp=drive_link" target="_blank" class="flex items-center gap-3 border-b-2 border-blue-500 pb-1 text-blue-500 font-black text-xs uppercase tracking-widest hover:text-white hover:border-white transition-all">
-                Access Design Directory <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </a>
-        </div>
-    </main>
-
-    <footer class="border-t border-white/5 py-10 px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-        <p class="text-[10px] font-bold text-gray-600 uppercase tracking-[0.5em]">Kim Carlo Rabang &copy; 2024</p>
-        <div class="flex gap-8">
-            <a href="https://www.linkedin.com/in/kim-carlo-r-aa0486239/" target="_blank" class="text-[10px] font-bold text-gray-500 hover:text-white uppercase tracking-widest">LinkedIn</a>
-            <a href="mailto:rabangkimcarlo@gmail.com" class="text-[10px] font-bold text-gray-500 hover:text-white uppercase tracking-widest">Email</a>
-        </div>
-    </footer>
-</div>
-
-<!-- INQUIRY FORM MODAL -->
-<div id="contactModal" onclick="if(event.target === this) toggleModal()">
-    <div class="w-full max-w-4xl h-[90vh] glass-container flex flex-col overflow-hidden relative">
-        <div class="p-6 border-b border-white/5 flex justify-between items-center bg-black">
-            <div class="flex items-center gap-3">
-                <i data-lucide="file-text" class="w-4 h-4 text-blue-500"></i>
-                <span class="text-[10px] font-black uppercase tracking-widest text-white">Inquiry Pipeline</span>
-            </div>
-            <button onclick="toggleModal()" class="text-gray-500 hover:text-white">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-        </div>
-        
-        <div class="flex-grow bg-white">
-            <iframe 
-                src="https://docs.google.com/forms/d/e/1FAIpQLSfmcEvZy7fhZ6CeiB-eJ9Iy5audIFWF1-uiSebMuHRJBNgq6Q/viewform?embedded=true" 
-                width="100%" 
-                height="100%" 
-                frameborder="0" 
-                marginheight="0" 
-                marginwidth="0">
-                Loading…
-            </iframe>
-        </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Available for hire
     </div>
-</div>
+    <h1 class="hero-name">Kim Carlo<br><span class="accent">G. Rabang</span></h1>
+    <p class="hero-tagline">AI Automation Specialist & Real Estate VA</p>
+    <p class="hero-desc">I help real estate professionals save hours every week by automating their workflows — from social media posting to lead management — so they can focus on closing deals.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">✉ Let's Work Together</a>
+      <a href="#services" class="btn-secondary">See My Services →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <p class="section-label">What I do</p>
+  <h2 class="section-title">Services</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🤖</div>
+      <div class="service-title">AI Automation</div>
+      <div class="service-desc">Building smart workflows using Make.com, AI tools, and APIs to automate repetitive tasks and save you hours every week.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏡</div>
+      <div class="service-title">Real Estate VA</div>
+      <div class="service-desc">Full administrative support for real estate agents — from listing management to client follow-ups and transaction coordination.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <div class="service-title">Social Media Management</div>
+      <div class="service-desc">Creating, scheduling, and automating social media content with AI-generated graphics and captions across all platforms.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📧</div>
+      <div class="service-title">CRM & Email Management</div>
+      <div class="service-desc">Setting up and managing CRM systems, automated email sequences, and lead tracking pipelines for real estate professionals.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔄</div>
+      <div class="service-title">Transaction Coordination</div>
+      <div class="service-desc">Managing the entire transaction process from contract to close, ensuring nothing falls through the cracks.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌐</div>
+      <div class="service-title">Website Management</div>
+      <div class="service-desc">Maintaining and updating real estate websites, landing pages, and online listings to keep your digital presence sharp.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <p class="section-label">Tools & Tech</p>
+  <h2 class="section-title">Skills</h2>
+  <div class="skills-wrap">
+    <span class="skill-tag">Make.com</span>
+    <span class="skill-tag">AI Automation</span>
+    <span class="skill-tag">OpenRouter</span>
+    <span class="skill-tag">Canva</span>
+    <span class="skill-tag">CRM Systems</span>
+    <span class="skill-tag">Email Marketing</span>
+    <span class="skill-tag">Social Media Management</span>
+    <span class="skill-tag">Transaction Coordination</span>
+    <span class="skill-tag">Website Management</span>
+    <span class="skill-tag">Google Workspace</span>
+    <span class="skill-tag">Slack</span>
+    <span class="skill-tag">Facebook Ads</span>
+    <span class="skill-tag">Lead Generation</span>
+    <span class="skill-tag">Real Estate Admin</span>
+    <span class="skill-tag">API Integrations</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LINKS -->
+<section id="links">
+  <p class="section-label">Find me online</p>
+  <h2 class="section-title">Portfolio & Profiles</h2>
+  <div class="links-grid">
+    <a href="https://www.linkedin.com/in/kim-carlo-r-aa0486239/" target="_blank" class="link-card">
+      <div class="link-card-left">
+        <div class="link-icon">💼</div>
+        <div>
+          <div class="link-title">LinkedIn</div>
+          <div class="link-sub">Professional profile & experience</div>
+        </div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+    <a href="https://v2.onlinejobs.ph/jobseekers/info/1896961" target="_blank" class="link-card">
+      <div class="link-card-left">
+        <div class="link-icon">🇵🇭</div>
+        <div>
+          <div class="link-title">OnlineJobs.ph</div>
+          <div class="link-sub">Freelance profile & reviews</div>
+        </div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+    <a href="mailto:rabangkimcarlo@gmail.com" class="link-card">
+      <div class="link-card-left">
+        <div class="link-icon">✉️</div>
+        <div>
+          <div class="link-title">Email Me</div>
+          <div class="link-sub">rabangkimcarlo@gmail.com</div>
+        </div>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WORK SAMPLES -->
+<section id="work">
+  <p class="section-label">Work Samples</p>
+  <h2 class="section-title">Portfolio Showcase</h2>
+
+  <div class="portfolio-grid">
+
+    <a href="https://canva.link/d9ng2gvkgqpvf1s" target="_blank" class="portfolio-card">
+      <div class="portfolio-preview">
+        <div class="preview-bg" style="background:linear-gradient(135deg,#22c55e,#16a34a);">
+          <div class="preview-icon">📱</div>
+        </div>
+        <div class="portfolio-overlay">
+          <span>View Design ↗</span>
+        </div>
+      </div>
+      <div class="portfolio-card-info">
+        <span class="portfolio-num">01</span>
+        <div class="portfolio-card-title">Social Media Campaign</div>
+        <div class="portfolio-card-desc">Complete social media content campaign with brand consistency.</div>
+      </div>
+    </a>
+
+    <a href="https://canva.link/v77cj6cb70gj47i" target="_blank" class="portfolio-card">
+      <div class="portfolio-preview">
+        <div class="preview-bg" style="background:linear-gradient(135deg,#0d9488,#22c55e);">
+          <div class="preview-icon">🏡</div>
+        </div>
+        <div class="portfolio-overlay">
+          <span>View Design ↗</span>
+        </div>
+      </div>
+      <div class="portfolio-card-info">
+        <span class="portfolio-num">02</span>
+        <div class="portfolio-card-title">Real Estate Listing Post</div>
+        <div class="portfolio-card-desc">Professional property listing designed for maximum engagement.</div>
+      </div>
+    </a>
+
+    <a href="https://canva.link/5urd00lgsxjtjql" target="_blank" class="portfolio-card">
+      <div class="portfolio-preview">
+        <div class="preview-bg" style="background:linear-gradient(135deg,#166534,#22c55e);">
+          <div class="preview-icon">🎨</div>
+        </div>
+        <div class="portfolio-overlay">
+          <span>View Design ↗</span>
+        </div>
+      </div>
+      <div class="portfolio-card-info">
+        <span class="portfolio-num">03</span>
+        <div class="portfolio-card-title">Brand Identity Kit</div>
+        <div class="portfolio-card-desc">Cohesive brand identity with typography, colors and visual elements.</div>
+      </div>
+    </a>
+
+    <a href="https://canva.link/1iiuq9s8t6fo2az" target="_blank" class="portfolio-card">
+      <div class="portfolio-preview">
+        <div class="preview-bg" style="background:linear-gradient(135deg,#22c55e,#86efac);">
+          <div class="preview-icon">📊</div>
+        </div>
+        <div class="portfolio-overlay">
+          <span>View Design ↗</span>
+        </div>
+      </div>
+      <div class="portfolio-card-info">
+        <span class="portfolio-num">04</span>
+        <div class="portfolio-card-title">Marketing Presentation</div>
+        <div class="portfolio-card-desc">Polished marketing deck designed to convert leads effectively.</div>
+      </div>
+    </a>
+
+    <a href="https://canva.link/trxo0pqb81lo4oe" target="_blank" class="portfolio-card">
+      <div class="portfolio-preview">
+        <div class="preview-bg" style="background:linear-gradient(135deg,#15803d,#4ade80);">
+          <div class="preview-icon">📅</div>
+        </div>
+        <div class="portfolio-overlay">
+          <span>View Design ↗</span>
+        </div>
+      </div>
+      <div class="portfolio-card-info">
+        <span class="portfolio-num">05</span>
+        <div class="portfolio-card-title">Content Calendar Design</div>
+        <div class="portfolio-card-desc">Structured content planning template for real estate managers.</div>
+      </div>
+    </a>
+
+    <a href="https://canva.link/kjw90qcpuyyivmp" target="_blank" class="portfolio-card">
+      <div class="portfolio-preview">
+        <div class="preview-bg" style="background:linear-gradient(135deg,#064e3b,#22c55e);">
+          <div class="preview-icon">🎯</div>
+        </div>
+        <div class="portfolio-overlay">
+          <span>View Design ↗</span>
+        </div>
+      </div>
+      <div class="portfolio-card-info">
+        <span class="portfolio-num">06</span>
+        <div class="portfolio-card-title">Lead Generation Template</div>
+        <div class="portfolio-card-desc">High-converting lead magnet built to attract real estate prospects.</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<style>
+  .portfolio-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .portfolio-card {
+    text-decoration:none;
+    color:var(--text);
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    transition:all 0.3s;
+    display:block;
+  }
+  .portfolio-card:hover {
+    border-color:var(--accent);
+    transform:translateY(-6px);
+    box-shadow:0 20px 40px rgba(34,197,94,0.1);
+  }
+  .portfolio-preview {
+    position:relative;
+    aspect-ratio:16/10;
+    overflow:hidden;
+  }
+  .preview-bg {
+    width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+    transition:transform 0.4s;
+  }
+  .portfolio-card:hover .preview-bg { transform:scale(1.05); }
+  .preview-icon { font-size:48px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
+  .portfolio-overlay {
+    position:absolute; inset:0;
+    background:rgba(0,0,0,0.6);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0;
+    transition:opacity 0.3s;
+  }
+  .portfolio-card:hover .portfolio-overlay { opacity:1; }
+  .portfolio-overlay span {
+    color:#fff;
+    font-size:14px;
+    font-weight:500;
+    border:1px solid #fff;
+    padding:10px 20px;
+    border-radius:6px;
+  }
+  .portfolio-card-info { padding:20px; }
+  .portfolio-num {
+    font-size:11px;
+    letter-spacing:3px;
+    color:var(--accent);
+    font-weight:500;
+  }
+  .portfolio-card-title {
+    font-family:'Syne',sans-serif;
+    font-size:16px;
+    font-weight:700;
+    color:var(--text);
+    margin:8px 0 6px;
+  }
+  .portfolio-card-desc {
+    font-size:12px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  @media(max-width:768px){
+    .portfolio-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media(max-width:480px){
+    .portfolio-grid { grid-template-columns:1fr; }
+  }
+</style>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <p class="section-label">Let's connect</p>
+  <h2 class="section-title">Ready to Work<br>Together?</h2>
+  <p class="cta-desc">Whether you need AI automation, real estate VA support, or social media management — I'm here to help you scale.</p>
+  <a href="mailto:rabangkimcarlo@gmail.com" class="btn-primary" style="margin:0 auto;display:inline-flex;">✉ Send me an email</a><br>
+  <a href="https://www.linkedin.com/in/kim-carlo-r-aa0486239/" target="_blank" class="email-link">Connect on LinkedIn ↗</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Kim Carlo G. Rabang</span>
+  <span>AI Automation Specialist & Real Estate VA</span>
+</footer>
 
 <script>
-    lucide.createIcons();
-    function toggleModal() {
-        const modal = document.getElementById('contactModal');
-        modal.classList.toggle('active');
-        document.body.style.overflow = modal.classList.contains('active') ? 'hidden' : 'auto';
-    }
+  let dark = true;
+  function toggleTheme() {
+    dark = !dark;
+    document.body.classList.toggle('light', !dark);
+    document.querySelector('.theme-toggle').textContent = dark ? '🌙' : '☀️';
+  }
+
+  // Carousel
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.dot-item');
+
+  function goToSlide(n) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = (n + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+  }
+
+  function moveSlide(dir) {
+    goToSlide(currentSlide + dir);
+  }
 </script>
 </body>
 </html>
